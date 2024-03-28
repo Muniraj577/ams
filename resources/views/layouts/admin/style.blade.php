@@ -24,5 +24,24 @@
 <link rel="stylesheet" href="{{ asset('assets/css/datepicker.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/datepicker.min.css') }}">
 <link rel="stylesheet" href="{{asset('assets/admin/css/style.css')}}">
+<link rel="stylesheet" href="{{ asset('assets/css/toastr.min.css') }}">
 
+<style>
+    .toast-top-container {
+        position: absolute;
+        top: 65px;
+        width: 280px;
+        right: 40px;
+        height: auto;
+    }
+
+    .btn-red {
+        color: red;
+    }
+
+    .btn-blue {
+        color: blue;
+    }
+
+</style>
 @yield('styles')

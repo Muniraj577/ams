@@ -1,5 +1,5 @@
 <li class="nav-item">
-    <a href="#" class="nav-link">
+    <a href="{{ route('admin.user.index') }}" class="nav-link @yield("user")">
         <i class="nav-icon fa fa-users iCheck"></i>
         <p>Users</p>
     </a>

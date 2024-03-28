@@ -5,7 +5,7 @@
     </a>
 </li>
 <li class="nav-item">
-    <a href="#" class="nav-link">
+    <a href="{{ route('admin.artist.index') }}" class="nav-link @yield("artist")">
         <i class="nav-icon fa fa-users iCheck"></i>
         <p>Artists</p>
     </a>

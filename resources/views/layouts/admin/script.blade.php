@@ -15,6 +15,7 @@
 <script src="{{ asset('assets/js/jquery-ui.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap-datepicker.min.js') }}"></script>
 <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
+<script src="{{ asset('assets/js/jquery-confirm.min.js') }}"></script>
 
 <script>
     $(document).ready(function () {
@@ -56,6 +57,30 @@
         });
     }
 
+    function onlynumbers(event) {
+
+        let key = window.event ? event.keyCode : event.which;
+        // event.keyCode == 39 (is for single quote)
+        // event.keyCode == 37 for decimal
+        if (event.keyCode == 8 || event.keyCode == 46 ||
+            event.keyCode == 37) {
+            return true;
+        } else if (key < 48 || key > 57) {
+            return false;
+        } else return true;
+    }
+
+    function onpasteString(event) {
+        if (event.clipboardData.getData('Text').match(/[^\d]/)) {
+            event.preventDefault();
+            $.alert({
+                title: 'Alert !',
+                content: 'Only numbers can be pasted',
+                icon: 'fa fa-exclamation-triangle',
+                theme: 'modern',
+            });
+        }
+    }
 
     var animationInterval;
 

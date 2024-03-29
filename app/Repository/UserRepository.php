@@ -70,7 +70,7 @@ class UserRepository implements UserInterface
                 $nestedData['gender'] = $user->gender != null ? GenderEnum::getLabel($user->gender) : '';
                 $nestedData['address'] = $user->address;
                 $nestedData['role'] = RoleEnum::getLabel($user->role);
-                if ($user->id != 1) {
+                if ($user->id != getUser()->id) {
                     $nestedData['action'] = "<div style='display: inline-flex;'>
                 <div>
                 <a href='{$edit}' id='editUser' class='edit btn btn-sm' data-id='" . $user->id . "' name='edit'><i class='fas fa-edit' style='color: blue;'></i></a>

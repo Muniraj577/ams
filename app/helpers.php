@@ -1,5 +1,12 @@
 <?php
+use Illuminate\Support\Facades\Auth;
 
+if (!function_exists("getUser")) {
+    function getUser()
+    {
+        return Auth::user();
+    }
+}
 if (!function_exists('getFormattedDate')) {
     function getFormattedDate($format, $date)
     {

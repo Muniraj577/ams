@@ -20,8 +20,8 @@
                 <img
                     class="img-circle elevation-2 img-size-32 mr-1 ml-3"
                     src="{{asset('assets/images/default.png')}}"
-                    alt="Admin">
-                Admin
+                    alt="{{getUser()->name}}">
+                {{getUser()->name}}
                 <span class="caret"></span>
             </a>
 
@@ -32,7 +32,7 @@
                     {{ __('Logout') }}
                 </a>
 
-                <form id="logout-form" action="{#" method="POST" style="display: none;">
+                <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
                     @csrf
                 </form>
             </div>

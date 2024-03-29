@@ -18,7 +18,7 @@ $active = 'active menu-open';
                      alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Admin</a>
+                <a href="#" class="d-block">{{getUser()->name}}</a>
             </div>
         </div>
         <!-- Sidebar Menu -->

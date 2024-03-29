@@ -17,10 +17,10 @@ use App\Http\Controllers\Admin\MusicController as AdminMusicController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('auth.login');
+})->middleware("guest");
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function (){
+Route::group(['prefix' => 'admin', 'as' => 'admin.', "middleware" => "auth"], function (){
     Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
     Route::group(["prefix" => "user", "as" => "user."], function () {
@@ -52,3 +52,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function (){
         Route::delete("delete/{id}", [AdminMusicController::class, "destroy"])->name("delete");
     });
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

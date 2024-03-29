@@ -29,7 +29,7 @@ class ArtistController extends Controller
 
     public function index()
     {
-        $artists = $this->artistRepository->getAll();
+        $artists = $this->artistRepository->getAll(['musics']);
         return $this->view($this->page . "index", [
             "artists" => $artists
         ])->with("id");

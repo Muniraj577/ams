@@ -41,6 +41,7 @@
                                     <th>Address</th>
                                     <th>First Release Year</th>
                                     <th>No. of Albums Released</th>
+                                    <th>Total Songs</th>
                                     <th class="hidden">Action</th>
                                 </tr>
                                 </thead>
@@ -54,11 +55,16 @@
                                         <td>{{$artist->address}}</td>
                                         <td>{{$artist->first_release_year}}</td>
                                         <td>{{$artist->no_of_albums_released}}</td>
+                                        <td>{{$artist->musics_count}}</td>
                                         <td>
                                             <div class="d-inline-flex">
                                                 <a href="{{ route('admin.artist.edit', $artist->id) }}"
                                                    class="edit btn btn-sm" title="Edit Artist">
                                                     <i class='fas fa-edit' style='color: blue;'></i>
+                                                </a>
+                                                <a href="{{ route('admin.artist.musics', $artist->id) }}"
+                                                   class="edit btn btn-sm" title="View Artist Songs">
+                                                    <i class='fas fa-eye' style='color: blue;'></i>
                                                 </a>
                                                 <a href="javascript:void(0);"
                                                    onclick="deleteData('{{$artist->id}}', '{{ route('admin.artist.delete', $artist->id) }}')"

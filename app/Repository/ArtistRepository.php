@@ -10,7 +10,7 @@ class ArtistRepository implements ArtistInterface
 {
     public function getAll($relations=[])
     {
-        return Artist::with($relations)->get();
+        return Artist::with($relations)->withCount($relations)->get();
     }
 
     public function save($data)

@@ -23,7 +23,7 @@ Route::get('/', function () {
 Route::group(['prefix' => 'admin', 'as' => 'admin.', "middleware" => "auth"], function (){
     Route::get('dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
-    Route::group(["prefix" => "user", "as" => "user."], function () {
+    Route::group(["prefix" => "user", "as" => "user.", "middleware" => "roles:super_admin"], function () {
         Route::get("", [AdminUserController::class, "index"])->name("index");
         Route::post("all", [AdminUserController::class, "allUsers"])->name("allUsers");
         Route::get("create", [AdminUserController::class, "create"])->name("create");

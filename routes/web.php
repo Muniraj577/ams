@@ -39,8 +39,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function (){
         Route::get("edit/{id}", [AdminArtistController::class, "edit"])->name("edit");
         Route::match(["put", "patch"], "update/{id}", [AdminArtistController::class, "update"])->name("update");
         Route::delete("delete/{id}", [AdminArtistController::class, "delete"])->name("delete");
-        Route::get("musics/{id}", [AdminMusicController::class, "index"])->name("musics");
         Route::get('export', [AdminArtistController::class, "export"])->name("export");
-        Route::post('import', [AdminArtistController::class, "importExcel"])->name("import");
+        Route::post('import', [AdminArtistController::class, "import"])->name("import");
     });
 });

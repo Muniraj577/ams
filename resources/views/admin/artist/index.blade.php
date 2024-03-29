@@ -18,6 +18,13 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title float-right">
+                                <a href="{{route("admin.artist.export")}}" class="btn btn-primary">
+                                    <i class="fas fa-download"></i> Export Artists
+                                </a>
+                                <a href="javascript:void(0);" class="btn btn-primary" data-toggle="modal"
+                                   data-target="#artistImportModal">
+                                    <i class="fas fa-upload"></i> Import Artists
+                                </a>
                                 <a href="{{route('admin.artist.create')}}" class="btn btn-primary">
                                     <i class="fas fa-plus"></i> Add Artist
                                 </a>
@@ -69,6 +76,7 @@
                 </div>
             </div>
         </div>
+        @include("modals.importArtist")
     </section>
 @endsection
 @section('scripts')
@@ -161,10 +169,8 @@
                         $(".alert-warning").css('display', 'block');
                         $(".db_error").html(data.db_error);
                     } else if (data.errors) {
-                        var error_html = "";
                         $.each(data.errors, function (key, value) {
-                            error_html = '<div>' + value + '</div>';
-                            $('.' + key).css('display', 'block').html(error_html);
+                            $('.' + key).css('display', 'block').html(value);
                         });
                     } else if (!data.errors && !data.db_error) {
                         toastr.success(data.msg);

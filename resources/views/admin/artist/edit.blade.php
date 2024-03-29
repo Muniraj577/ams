@@ -151,7 +151,7 @@
                                 </div>
                                 <div class="form-group text-center">
                                     <button type="button" onclick="submitForm(event);"
-                                            class="btn btn-primary">Submit
+                                            class="btn btn-primary" id="submitArtist">Submit
                                     </button>
                                 </div>
                             </form>
@@ -193,6 +193,9 @@
                 processData: false,
                 contentType: false,
                 cache: false,
+                beforeSend: function(){
+                    setSubmittingAnimation('submitArtist');
+                },
                 success: function (data) {
                     // return false;
                     if (data.db_error) {
@@ -221,6 +224,9 @@
                             $('.' + key).css('display', 'block').html(error_html);
                         });
                     }
+                },
+                complete: function (){
+                    clearAnimatedInterval('submitArtist', 'Submit')
                 }
             });
         }

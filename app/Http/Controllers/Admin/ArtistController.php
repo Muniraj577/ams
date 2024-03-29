@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Contracts\ArtistInterface;
+use App\Exports\ArtistsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArtistRequest;
+use App\Jobs\ImportArtist;
 use App\Traits\AdminMethods;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ArtistController extends Controller
 {
@@ -79,6 +84,40 @@ class ArtistController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->sendError($e->getMessage());
+        }
+    }
+
+    public function export()
+    {
+        $artists = DB::select('SELECT * FROM artists');
+        foreach ($artists as $index => $artist){
+            $artist->sequence_number = $index + 1;
+        }
+        return Excel::download((new ArtistsExport($artists)), 'artists.csv');
+    }
+
+    public function import(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+           'file' => ['required', 'file', 'mimes:csv'],
+        ]);
+        if($validator->fails()){
+            return response()->json(['errors' => $validator->errors()->getMessages()]);
+        }
+        if($validator->passes()){
+            try {
+                /**
+                 * To import using job we must store the file in temp path and then access that file in our job to import the data
+                 * from file
+                */
+                $tempFilePath = $request->file('file')->storeAs('temporary', 'artist.csv');
+                dispatch(new ImportArtist($tempFilePath))->delay(30);
+                return response()->json([
+                   'msg' => 'Artist imported successfully',
+                ]);
+            } catch (\Exception $e){
+                return $this->sendError($e->getMessage());
+            }
         }
     }
 }

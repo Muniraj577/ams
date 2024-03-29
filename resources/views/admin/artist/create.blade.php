@@ -190,9 +190,9 @@
                 processData: false,
                 contentType: false,
                 cache: false,
-                // beforeSend: function(){
-                //     setSubmittingAnimation('submitArtist');
-                // },
+                beforeSend: function(){
+                    setSubmittingAnimation('submitArtist');
+                },
                 success: function (data) {
                     if (data.db_error) {
                         $(".alert-warning").css('display', 'block');
@@ -221,9 +221,9 @@
                         });
                     }
                 },
-                // complete: function (){
-                //     clearAnimatedInterval('submitArtist', 'Submit')
-                // }
+                complete: function (){
+                    clearAnimatedInterval('submitArtist', 'Submit')
+                }
             });
         }
     </script>

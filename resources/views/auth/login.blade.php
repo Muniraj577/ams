@@ -157,7 +157,7 @@
         });
 
         $("#showRegisterForm").on("click", () => {
-            resetForm()
+            resetForm();
             $("#registerCard").removeClass('d-none');
             $("#loginCard").addClass('d-none');
         });
@@ -180,7 +180,6 @@
                         $('.' + key).css('display', 'block').html(value);
                     });
                 } else if (!data.errors && !data.db_error) {
-                    console.log('here');
                     toastr.success(data.msg);
                     resetForm();
                     setTimeout(function () {

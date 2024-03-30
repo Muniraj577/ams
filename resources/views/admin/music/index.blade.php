@@ -18,10 +18,12 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title float-right">
+                                @hasRole('artist')
                                 <a href="javascript:void(0);" class="btn btn-primary" data-toggle="modal"
                                    data-target="#musicModal">
                                     <i class="fas fa-plus"></i> Add Music
                                 </a>
+                                @endhasRole
                                 <a href="{{route('admin.artist.index')}}" class="btn btn-primary ml-2">
                                     <i class="fas fa-arrow-left"></i> Go back to Artist Page
                                 </a>
@@ -37,7 +39,9 @@
                                     <th>Title</th>
                                     <th>Album Name</th>
                                     <th>Genre</th>
+                                    @hasRole('artist')
                                     <th class="hidden">Action</th>
+                                    @endhasRole
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -48,21 +52,23 @@
                                         <td>{{$music->title}}</td>
                                         <td>{{$music->album_name}}</td>
                                         <td>{{\App\Enum\GenreEnum::getLabel($music->genre)}}</td>
+                                        @hasRole('artists')
                                         <td>
                                             <div class="d-inline-flex">
                                                 <a href="javascript:void(0)" data-target-id="{{$music->id}}"
                                                    data-toggle="modal" data-target="#musicModal"
-                                                   class="edit btn btn-sm" title="Edit Music">
+                                                   class="edit btn btn-sm editMusic" title="Edit Music">
                                                     <i class='fas fa-edit' style='color: blue;'></i>
                                                 </a>
                                                 <a href="javascript:void(0);"
-                                                   onclick="deleteData('{{$music->id}}', '{{ route('admin.music.delete', $music->id) }}')"
+                                                   onclick="deleteData('{{$music->id}}', '{{ route('admin.music.delete', $music->id) }}', ['artist'])"
                                                    class="edit btn btn-sm" title="Delete Music">
                                                     <i class='fas fa-trash' style='color: red;'></i>
                                                 </a>
 
                                             </div>
                                         </td>
+                                        @endhasRole
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -82,6 +88,13 @@
 @section('scripts')
     <script>
         $(function () {
+            $(".editMusic").on('click', function () {
+                @if(getUser()->role != 'artist')
+                alert('Unauthorized');
+                @else
+                $("#musicModal").modal('show');
+                @endif
+            });
             $("#musicModal").on("show.bs.modal", function (e) {
                 let id = $(e.relatedTarget).data('target-id');
                 if (id === undefined) {
@@ -145,7 +158,7 @@
                         toastr.success(data.msg);
                         setTimeout(function () {
                             location.href = data.redirectRoute;
-                        },1000);
+                        }, 1000);
                     }
 
                 }

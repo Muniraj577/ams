@@ -31,11 +31,20 @@
         $('.buttons-collection').detach().appendTo('.dataTables_filter');
     }
 
-    function deleteData($_id, $_action) {
+    function deleteData($_id, $_action, roles=[]) {
+        var authRole = '<?php echo getUser()->role; ?>';
         $.ajax({
             url: $_action,
             type: 'POST',
             data: {'id': $_id, '_method': 'DELETE'},
+            beforeSend: function (){
+              if(roles.length > 0) {
+                  if(!roles.includes(authRole)){
+                      alert('Unauthorized');
+                      return false;
+                  }
+              }
+            },
             success: function (data) {
                 if (data.error) {
                     toastr.warning(data.error);

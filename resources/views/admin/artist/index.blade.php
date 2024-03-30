@@ -18,6 +18,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-title float-right">
+                                @hasRole('artist_manager')
                                 <a href="{{route("admin.artist.export")}}" class="btn btn-primary">
                                     <i class="fas fa-download"></i> Export Artists
                                 </a>
@@ -28,6 +29,7 @@
                                 <a href="{{route('admin.artist.create')}}" class="btn btn-primary">
                                     <i class="fas fa-plus"></i> Add Artist
                                 </a>
+                                @endhasRole
                             </div>
                         </div>
                         <div class="card-body">
@@ -58,19 +60,23 @@
                                         <td>{{$artist->musics_count}}</td>
                                         <td>
                                             <div class="d-inline-flex">
+                                                @hasRole('artist_manager')
                                                 <a href="{{ route('admin.artist.edit', $artist->id) }}"
                                                    class="edit btn btn-sm" title="Edit Artist">
                                                     <i class='fas fa-edit' style='color: blue;'></i>
                                                 </a>
+                                                @endhasRole
                                                 <a href="{{ route('admin.artist.musics', $artist->id) }}"
                                                    class="edit btn btn-sm" title="View Artist Songs">
                                                     <i class='fas fa-eye' style='color: blue;'></i>
                                                 </a>
+                                                @hasRole('artist_manager')
                                                 <a href="javascript:void(0);"
-                                                   onclick="deleteData('{{$artist->id}}', '{{ route('admin.artist.delete', $artist->id) }}')"
+                                                   onclick="deleteData('{{$artist->id}}', '{{ route('admin.artist.delete', $artist->id) }}', ['artist_manager'])"
                                                    class="edit btn btn-sm" title="Delete Artist">
                                                     <i class='fas fa-trash' style='color: red;'></i>
                                                 </a>
+                                                @endhasRole
                                             </div>
                                         </td>
                                     </tr>

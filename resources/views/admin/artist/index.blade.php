@@ -52,7 +52,7 @@
                                     <tr>
                                         <td>{{++$id}}</td>
                                         <td>{{$artist->name}}</td>
-                                        <td>{{getFormattedDate('Y-m-d',$artist->dob)}}</td>
+                                        <td>{{getFormattedDate('Y F j',$artist->dob)}}</td>
                                         <td>{{App\Enum\GenderEnum::getLabel($artist->gender)}}</td>
                                         <td>{{$artist->address}}</td>
                                         <td>{{$artist->first_release_year}}</td>

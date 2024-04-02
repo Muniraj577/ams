@@ -32,14 +32,18 @@ class ArtistsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithCh
      */
     public function model(array $row)
     {
-        return new Artist([
-            'name' => $row['name'],
-            'dob' => $row['dob'],
-            'gender' => $row['gender'],
-            'address' => $row['address'],
-            'first_release_year' => $row['first_release_year'],
-            'no_of_albums_released' => $row['no_of_albums_released']
-        ]);
+        $artist = Artist::where(['name' => $row['name'], 'dob' => $row['dob']]);
+        if(!$artist->exists()){
+            return new Artist([
+                'name' => $row['name'],
+                'dob' => $row['dob'],
+                'gender' => $row['gender'],
+                'address' => $row['address'],
+                'first_release_year' => $row['first_release_year'],
+                'no_of_albums_released' => $row['no_of_albums_released']
+            ]);
+        }
+
     }
 
     public function batchSize(): int
